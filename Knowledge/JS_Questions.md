@@ -162,3 +162,44 @@ We need to extend the Array library, so
 Array.prototype.duplicate = function() {
   return this.concat(this);
 }
+
+Why is it called a Ternary expression, what does the word "Ternary" indicate?
+Ternary originates from the n-ary sequence, i.e. unary, binary, … So ternary means it takes three parameters.
+If this (1) do this (2) otherwise do this (3)
+
+What is "use strict";? what are the advantages and disadvantages to using it?
+In this mode, javascript throws more exceptions for coding mistakes, errors/warnings for improper usage (e.g. accessing the global object). Disadvantage is that you just can’t do some things (but these are generally not recommended things...so not so much of a disadvantage…)
+
+Create a for loop that iterates up to 100 while outputting "fizz" at multiples of 3, "buzz" at multiples of 5 and "fizzbuzz" at multiples of 3 and 5
+for (var i = 0; i <= 100; i++) {
+  let output = ‘’;
+  If (i % 3 === 0) output.concat(‘fizz’);
+  If (i % 5 === 0) output.concat(‘buzz’);
+  If (output === ‘’) output.concat(i);
+  Return output;
+}
+
+Why is it, in general, a good idea to leave the global scope of a website as-is and never touch it?
+Many reasons:
+It is confusing for future developers who are looking for where a variable is first declared (with var)...and it never is
+It is easy to forget where else you are altering this variable and keeping track of when/what it is may be difficult
+It’s cleaner to just define a variable where it is specifically needed
+Easier to clash names when variables are just floating around
+
+Why would you use something like the load event? Does this event have disadvantages? Do you know any alternatives, and why would you use those?
+
+Explain what a single page app is and how to make one SEO-friendly.
+What is the extent of your experience with Promises and/or their polyfills?
+What are the pros and cons of using Promises instead of callbacks?
+What are some of the advantages/disadvantages of writing JavaScript code in a language that compiles to JavaScript?
+What tools and techniques do you use debugging JavaScript code?
+What language constructions do you use for iterating over object properties and array items?
+Explain the difference between mutable and immutable objects.
+What is an example of an immutable object in JavaScript?
+What are the pros and cons of immutability?
+How can you achieve immutability in your own code?
+Explain the difference between synchronous and asynchronous functions.
+What is event loop?
+What is the difference between call stack and task queue?
+Explain the differences on the usage of foo between function foo() {} and var foo = function() {}
+
