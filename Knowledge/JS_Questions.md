@@ -236,7 +236,7 @@ for (var i = 0; i <= 100; i++) {
   if (i % 3 === 0) output.concat(‘fizz’);
   if (i % 5 === 0) output.concat(‘buzz’);
   if (output === ‘’) output.concat(i);
-  return output;
+  console.log(output);
 }
 ```
 
