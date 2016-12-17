@@ -1,24 +1,29 @@
-## Explain event delegation
+### Explain event delegation
 
 Event delegation in JS is the ability to add a single event handler to a parent node which will catch when the specified event occurs on any of its child elements. If statements in the handler can check that the element is the correct type you are looking for, and a while loop can help you bubble up the elements if they are nested.
+
 E.g.
+```javascript
 document.getElementById(‘parent’).onclick(event) {
-If (event.target && event.target.nodeName === ‘LI’) {
-//do something here
-}
-Else {
-  Target = event.target.parentNode
-    While (target !== this) {
-      If (target.nodeName === ‘LI’) {
-        //do something here
+  if (event.target && event.target.nodeName === ‘LI’) {
+    //do something here
+  } else {
+    target = event.target.parentNode
+      while (target !== this) {
+        if (target.nodeName === ‘LI’) {
+          //do something here
+        }
       }
-    }
+  }
 }
-}
+```
+
 Notes: onclick() === click() in jquery
+
 To check if an element has a class, do element.matches(‘.classnamehere’), can also handle span.class, div#id, etc. ===> same as hasClass or .id in jquery
 
-Explain how prototypal inheritance works
+## Explain how prototypal inheritance works
+
 In JS, there are only objects, not classes, and each object simply has a collection of properties. One of these properties is its prototype, accessed by .__proto__. If a property of an object cannot be found in this object directly, whatever is specified as its prototype is then searched for the property, and this continues up the prototype chain until it is found, or the end is reached (where prototype is null).
 To implement inheritance in JS, it must be specified that one object’s prototype is that of another object. In ES5, this would be done like:
 var Car = function() {
