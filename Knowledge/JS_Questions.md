@@ -1,4 +1,5 @@
-Explain event delegation
+## Explain event delegation
+
 Event delegation in JS is the ability to add a single event handler to a parent node which will catch when the specified event occurs on any of its child elements. If statements in the handler can check that the element is the correct type you are looking for, and a while loop can help you bubble up the elements if they are nested.
 E.g.
 document.getElementById(‘parent’).onclick(event) {
