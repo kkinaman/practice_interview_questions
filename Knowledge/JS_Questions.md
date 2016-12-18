@@ -244,25 +244,60 @@ for (var i = 0; i <= 100; i++) {
 
 Many reasons:
 
-It is confusing for future developers who are looking for where a variable is first declared (with var)...and it never is
+- It is confusing for future developers who are looking for where a variable is first declared (with var)...and it never is
 
-It is easy to forget where else you are altering this variable and keeping track of when/what it is may be difficult
+- It is easy to forget where else you are altering this variable and keeping track of when/what it is may be difficult
 
-It’s cleaner to just define a variable where it is specifically needed
+- It’s cleaner to just define a variable where it is specifically needed
 
-Easier to clash names when variables are just floating around
+- Easier to clash names when variables are just floating around
 
 ## Why would you use something like the load event? Does this event have disadvantages? Do you know any alternatives, and why would you use those?
 
 ## Explain what a single page app is and how to make one SEO-friendly.
-## What is the extent of your experience with Promises and/or their polyfills?
-## What are the pros and cons of using Promises instead of callbacks?
+
+A single page app, for example those of react, angular, backbone, is one where content is loaded dynamically based on user interaction, and the page is never reloaded or refreshed. Even navigation is handled through the framework and not by rendering another HTML page (instead hash bangs are often used). This provides an optimized user experience because it is faster and more responsive. The downside though is that original search engine algorithms only scraped the immediate HTML of a page, without considering any JavaScript or waiting for scripts to load. Nowadays, search engines have been configured to handle single page apps by crawling through page features and analyzing hash bang urls as well. This can take a long time though because it still has to wait for JavaScript, CSS, etc to load, so to optimize a single page app for SEO, it is helpful to detect when a crawler is accessing the site (using the user agent string), and display a much simplified version of the page that only displays relevant images, links, and content you want the crawler to find and index. 
+
+## What is the extent of your experience with Promises and/or their polyfills? What are the pros and cons of using Promises instead of callbacks?
+
+I love promises, have used them extensively, and really enjoy that they make code much cleaner and have a clear flow of events and can be chained. 
+
+Pros: cleaner, more flexibility of when/where the promise is resolved/rejected, great when dealing with multiple asynchronous calls
+
+Cons: If the asynchronous call is very simple and/or doesn’t return any data, a Promise may introduce more complexity and it may be simpler to use a callback
+
 ## What are some of the advantages/disadvantages of writing JavaScript code in a language that compiles to JavaScript?
 ## What tools and techniques do you use debugging JavaScript code?
+
+Console.logs, Chrome console, setting breakpoints/debugger keyword in JS to step in/over, etc
+
 ## What language constructions do you use for iterating over object properties and array items?
-## Explain the difference between mutable and immutable objects.
-## What is an example of an immutable object in JavaScript?
+
+Objects: for...in, Arrays: for loop or array.forEach()
+
+## Explain the difference between mutable and immutable objects. What is an example of an immutable object in JavaScript?
+
+Mutable objects’ value can be altered once it is set; immutable object values cannot be changed. Immutable values in JS are strings and numbers, e.g.
+```javascript
+var str = ‘abc’;
+var a = str.slice(0, 1);
+```
+→ this does not change the value of str
+
 ## What are the pros and cons of immutability?
+
+Pros: 
+
+- Simpler; don’t have to worry about accidentally mutating something’
+
+- Allows for chaining because functions on immutable objects return new immutable objects
+
+- No need to make ‘backup’ copies while you mutate something
+
+Cons:
+
+- Have to make extra copies in order to change anything about the value
+
 ## Explain the difference between synchronous and asynchronous functions.
 ## What is event loop?
 ## What is the difference between call stack and task queue?
