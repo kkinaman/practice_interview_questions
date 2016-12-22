@@ -62,15 +62,44 @@ function parseCSV(input, separator, quote) {
   separator = separator || ',';
   quote = quote || '"';
   
-  // Create your implementation here
-  
+  let results = [];
+  let chunks = input.split(separator);
+  let indexer = 0;
+  let leftover = '';
+
+  while (indexer < input.length) {
+    let row = [];
+
+    if (leftover !== '') {
+      row.push(leftover);
+    }
+    leftover = '';
+
+    let chunk = chunks[indexer];
+    while (chunk !== undefined && chunk.indexOf('\n') === -1) {
+      row.push(chunk);
+      indexer++;
+      chunk = chunks[indexer];
+    }
+    if (chunk) { 
+      let splitChunk = chunk.split('\n');
+      row.push(splitChunk[0]);
+      results.push(row);
+      leftover = splitChunk[1];
+      indexer++;
+    } else {
+      results.push(row);
+      break;
+    }
+  }
+  return results;
 }
 
-var input = '1,2,3\n4,5,6';
+var input = "1,2,3\n4,5,6";
 console.log(parseCSV(input)); //[['1','2','3'],['4','5','6']];
 
-var input = '1,\'two was here\',3\n4,5,6';
-console.log(parseCSV(input)); //[['1','two was here','3'],['4','5','6']];
+// var input = "1,\"two was here\",3\n4,5,6";
+// console.log(parseCSV(input)); //[['1','two was here','3'],['4','5','6']];
 
-var input = '1\t2\t3\n4\t5\t6';
-console.log(parseCSV(input)); //[['1','2','3'],['4','5','6']];
+// var input = "1\t2\t3\n4\t5\t6";
+// console.log(parseCSV(input)); //[['1','2','3'],['4','5','6']];
