@@ -85,7 +85,7 @@ function parseCSV(input, separator, quote) {
 
     let chunk = chunks[indexer];
     while (chunk !== undefined && chunk.indexOf('\n') === -1) {
-      chunk = chunk.replaceAll('\"', '');
+      chunk = chunk.replace(/\"/g, '');
       row.push(chunk);
       indexer++;
       chunk = chunks[indexer];
@@ -101,7 +101,7 @@ function parseCSV(input, separator, quote) {
       break;
     }
   }
-  return results;
+  return results.length === 0 ? [['']] : results;
 }
 
 var input = "1,2,3\n4,5,6";
