@@ -66,35 +66,36 @@ You may safely assume that the values provided are a single character, but bonus
  */
 
 
-function parseCSV(input, separator, quote) {
-  separator = separator || ',';
-  quote = quote || '"';
-  
-  let results = [];
-  let indexer = 0;
+ function parseCSV(input, separator, quote) {
+   console.log(input);
+   separator = separator || ',';
+   quote = quote || '"';
+   
+   let results = [];
+   let indexer = 0;
 
-  //find all matches of ,"...", and save these to array
-  var regex = new RegExp(',' + quote + '[^\"]+' + quote + ',', 'g');
-  let quoteChunks = input.match(regex);
-  //replace all same matches with ,ref,
-  input = input.replace(regex, ',ref,');
+   //find all matches of ,"...", and save these to array
+   var regex = new RegExp(',' + quote + '[^\"]*' + quote + ',', 'g');
+   let quoteChunks = input.match(regex);
+   //replace all same matches with ,ref,
+   input = input.replace(regex, ',ref,');
 
-  let rows = input.split('\n');
-  rows.forEach(row => {
-    //if matches ref, get first from quoteChunks and then delete from quoteChunks (unshift)
-    results.push(row.split(separator).map(item => {
-      if (item === 'ref') {
-        let quote = quoteChunks.shift();
-        quote = quote.slice(2, quote.length - 2);
-        return quote;
-      } else {
-        return item;
-      }
-    }));
-  });
+   let rows = input.split('\n');
+   rows.forEach(row => {
+     //if matches ref, get first from quoteChunks and then delete from quoteChunks (unshift)
+     results.push(row.split(separator).map(item => {
+       if (item === 'ref') {
+         let chunk = quoteChunks.shift();
+         chunk = chunk.slice(2, chunk.length - 2);
+         return chunk;
+       } else {
+         return item;
+       }
+     }));
+   });
 
-  return results.length === 0 ? [['']] : results;
-}
+   return results.length === 0 ? [[]] : results;
+ }
 
 var input = "1,2,3\n4,5,6";
 console.log(parseCSV(input)); //[['1','2','3'],['4','5','6']];
