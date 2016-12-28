@@ -3,6 +3,18 @@ function Cons(head, tail) {
   this.tail = tail;
 }
 
+function toArray(list) {
+  if (list) {
+    var more = list.tail;
+    return [list.head].concat(more ? toArray(more) : []);
+  }
+  return [];
+}
+
+Cons.prototype.toArray = function() { return toArray(this); };
+
+
+
 Cons.fromArray = function(array) {
   if (!array.length) {
     return null;
@@ -12,11 +24,11 @@ Cons.fromArray = function(array) {
 };
 
 function filter(list, predicate) {
-  let results = [];
+  let newList = arguments[2] || null;
   if (predicate(list.head)) {
-    results.push(list.head);
+    newList = new Cons(list.head, newList);
   }
-  return list.tail ? results.concat(filter(list.tail, predicate)) : results;
+  return list.tail ? filter(list.tail, predicate, newList) : newList;
 }
 
 function map(list, mapper) {
