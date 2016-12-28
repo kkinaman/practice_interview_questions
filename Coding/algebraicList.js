@@ -16,9 +16,11 @@ function filter(list, predicate) {
   if (predicate(list.head)) {
     results.push(list.head);
   }
-  //TODO: return a new list containing only elements
-  //that satisfy the predicate function.
-  return results;
+  if (list.tail) {
+    return results.concat(filter(list.tail, predicate));
+  } else {
+    return results;
+  }
 }
 
 function map(list, mapper){
