@@ -26,9 +26,30 @@ Cons.fromArray = function(array) {
 function filter(list, predicate) {
   let newList = arguments[2] || null;
   if (predicate(list.head)) {
+    if (!newList) {
+      newList = new Cons(list.head, null);
+    } else { 
+      let cur = newList.tail;
+      while (cur) {
+
+      }
+    }
     newList = new Cons(list.head, newList);
   }
   return list.tail ? filter(list.tail, predicate, newList) : newList;
+}
+
+function filter(list, predicate) {
+  let newList = filter(list.tail, predicate);
+}
+
+function map(list, mapper) {
+  if (list.tail) {
+    let newList = map(list.tail, mapper);
+    return new Cons(mapper(list.head), newList);
+  } else {
+    return new Cons(mapper(list.head), null);
+  }
 }
 
 function map(list, mapper) {
