@@ -14,13 +14,8 @@ function toArray(list) {
 Cons.prototype.toArray = function() { return toArray(this); };
 
 
-
 Cons.fromArray = function(array) {
-  if (!array.length) {
-    return null;
-  } else {
-    return new Cons(array[0], Cons.fromArray(array.slice(1)));
-  }
+  return array.length ? new Cons(array[0], Cons.fromArray(array.slice(1))) : null;
 };
 
 function filter(list, predicate) {
