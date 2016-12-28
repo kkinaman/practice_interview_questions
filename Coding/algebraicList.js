@@ -16,18 +16,14 @@ function filter(list, predicate) {
   if (predicate(list.head)) {
     results.push(list.head);
   }
-  if (list.tail) {
-    return results.concat(filter(list.tail, predicate));
-  } else {
-    return results;
-  }
+  return list.tail ? results.concat(filter(list.tail, predicate)) : results;
 }
 
-function map(list, mapper){
-  //TODO: return a new list containing all elements
-  //resulting from applying the mapper functiont to them
-  return null;
+function map(list, mapper) {
+  let results = [];
+  results.push(mapper(list.head));
+  return list.tail ? results.concat(map(list.tail, mapper)) : results;
 }
 
-Cons.prototype.filter = function(predicate){ return filter(this,predicate); };
-Cons.prototype.map = function(mapper){ return map(this, mapper); };
+Cons.prototype.filter = predicate => filter(this, predicate);
+Cons.prototype.map = mapper => map(this, mapper);
