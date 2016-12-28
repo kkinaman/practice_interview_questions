@@ -16,6 +16,13 @@ natToInt(zero) should be 0 - Expected: 0, instead got: undefined
 function natToInt(nat) {
   if (nat === zero) {
     return 0;
+  } else {
+    let counter = -1; //because zero is also a function
+    while (typeof nat === 'function') {
+      counter++;
+      nat = nat();
+    }
+    return counter;
   }
 }
 
