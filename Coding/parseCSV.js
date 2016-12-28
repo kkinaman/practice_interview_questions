@@ -68,17 +68,24 @@ You may safely assume that the values provided are a single character, but bonus
 
 function parseCSV(input, separator, quote) {
   console.log(input);
+  console.log(separator);
+  console.log(quote);
   separator = separator || ',';
   quote = quote || '"';
+  
+  if (quote === '\\') {
+    quote = '\\\\';
+  }
+  const regSep = separator === '.' ? '[.]' : separator;
    
   let results = [];
   let indexer = 0;
 
   //find all matches of ,"...", and save these to array
-  var regex = new RegExp(',' + quote + '(.|\n)*' + quote + ',', 'g');
+  var regex = new RegExp(regSep + quote + '(^(' + regSep + quote + '))*' + '(' + quote + regSep + '|' + quote + '$)', 'g');
   let quoteChunks = input.match(regex);
   //replace all same matches with ,ref,
-  input = input.replace(regex, ',ref,');
+  input = input.replace(regex, separator + 'ref' + separator);
 
   let rows = input.split('\n');
   rows.forEach(row => {
@@ -100,7 +107,6 @@ function parseCSV(input, separator, quote) {
       }
     }));
   });
-
   return results.length === 0 ? [[]] : results;
 }
 
