@@ -25,5 +25,5 @@ function map(list, mapper) {
   return list.tail ? results.concat(map(list.tail, mapper)) : results;
 }
 
-Cons.prototype.filter = predicate => filter(this, predicate);
-Cons.prototype.map = mapper => map(this, mapper);
+Cons.prototype.filter = function(predicate) { return filter(this, predicate); };
+Cons.prototype.map = function(mapper) { return map(this, mapper); };
