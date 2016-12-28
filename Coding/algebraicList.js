@@ -32,9 +32,9 @@ function filter(list, predicate) {
 }
 
 function map(list, mapper) {
-  let results = [];
-  results.push(mapper(list.head));
-  return list.tail ? results.concat(map(list.tail, mapper)) : results;
+  let newList = arguments[2] || null;
+  newList = new Cons(mapper(list.head), newList);
+  return list.tail ? map(list.tail, mapper, newList) : newList;
 }
 
 Cons.prototype.filter = function(predicate) { return filter(this, predicate); };
