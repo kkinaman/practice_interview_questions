@@ -45,14 +45,6 @@ function add(nat1, nat2) {
   }
 }
 
-/*
-mul(zero, zero) should be zero - Expected: [Function: zero], instead got: undefined
-✘ natToInt(mul(zero, succ(zero))) should be 0 - Expected: 0, instead got: -1
-✘ natToInt(mul(succ(zero), zero)) should be 0 - Expected: 0, instead got: -1
-✘ natToInt(mul(succ(zero), succ(zero))) should be 1 - Expected: 1, instead got: -1
-✘ natToInt(mul(succ(succ(zero)), succ(zero))) should be 2 - Expected: 2, instead got: -1
-*/
-
 function mul(nat1, nat2) {
   if (nat1 === zero || nat2 === zero) {
     return zero;
@@ -67,6 +59,11 @@ function mul(nat1, nat2) {
 }
 
 function compareTo (nat1, nat2) {
+  while (nat1 !== zero && nat2 !== zero) {
+    nat1 = nat1();
+    nat2 = nat2();
+  }
+  return (nat1 === zero && nat2 === zero) ? 0 : nat1 === zero ? -1 : 1;
 }
 
 function toString(nat) {
