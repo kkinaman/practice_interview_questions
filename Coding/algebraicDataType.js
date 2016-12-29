@@ -33,7 +33,30 @@ function intToNat(int) {
   }
 }
 
+/*
+add(zero, zero) should be zero - Expected: [Function: zero], instead got: undefined
+✘ natToInt(add(zero, succ(zero))) should be 1 - Expected: 1, instead got: -1
+✘ natToInt(add(succ(zero), zero)) should be 1 - Expected: 1, instead got: -1
+✘ natToInt(add(succ(zero), succ(zero))) should be 2 - Expected: 2, instead got: -1
+✘ natToInt(add(intToNat(100007), intToNat(50007))) should be 1500014 - Expected: 15014, instead got: -1
+*/
+
 function add(nat1, nat2) {
+  if (nat1 === zero) {
+    if (nat2 === zero) {
+      return zero;
+    } else {
+      return nat2;
+    }
+  } else if (nat2 === zero) {
+    return nat1;
+  } else {
+    while (typeof nat1 === 'function' && nat1 !== zero) {
+      nat1 = nat1();
+      nat2 = succ(nat2);
+    }
+    return nat2;
+  }
 }
 
 function mul(nat1, nat2) {
@@ -41,13 +64,6 @@ function mul(nat1, nat2) {
 
 function compareTo (nat1, nat2) {
 }
-
-/*
-toString(zero) should be "zero" - Expected: 'zero', instead got: undefined
-✘ toString(succ(zero)) should be "succ(zero)" - Expected: 'succ(zero)', instead got: undefined
-✘ toString(succ(succ(zero))) should be "succ(succ(zero))" - Expected: 'succ(succ(zero))', instead got: undefined
-✘ Expected: 'succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(succ(zero))))))))))))))))))))))))))))))))))))))))))))))))))', instead got: undefined
-*/
 
 function toString(nat) {
   if (nat === zero) {
