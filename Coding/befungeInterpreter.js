@@ -66,10 +66,19 @@ function interpret(code) {
     }
     //put & get
 
-    //other
-      //logical not
-      //string
-      //duplicate
+    //logical not
+
+    //string
+    if (cur === '"') {
+      col++;
+      cur = rows[row][col];
+      while (cur !== '"') {
+        stack.push(cur.charCodeAt(0));
+        col++;
+        cur = rows[row][col];
+      }
+    }
+    //duplicate
     if (cur === ':') {
       let top = stack.pop();
       if (top) {
@@ -79,8 +88,10 @@ function interpret(code) {
         stack.push(0);
       }
     }
-      //swap
-      //trampoline
+    //swap
+
+    //trampoline
+
     //end of input
     if (cur === '@') {
       processing = false;
