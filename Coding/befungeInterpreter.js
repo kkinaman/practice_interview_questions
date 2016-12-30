@@ -66,7 +66,12 @@ function interpret(code) {
         cur === '.' ? output = output.concat(parseInt(val)) : cur === ',' ? output = output.concat(String.fromCharCode(val)) : null;
     }
     //put & get
-
+    //g Pop y and x, then push ASCII value of the character at that position in the program.
+    if (cur === 'g') {
+      let y = stack.pop();
+      let x = stack.pop();
+      stack.push(rows[y][x].charCodeAt(0));
+    }
     //logical not
 
     //string
@@ -97,7 +102,10 @@ function interpret(code) {
       stack.push(b);
     }
     //trampoline
-
+    if (cur === '#') {
+      direction === 'r' ? col++ : direction === 'l' ? col-- : direction === 'u' ? row-- : row++;
+      cur = rows[row][col];
+    }
     //end of input
     if (cur === '@') {
       processing = false;
