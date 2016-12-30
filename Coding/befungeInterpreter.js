@@ -31,6 +31,7 @@ interpret('>987v>.v\nv456<  :\n>321 ^ _@') //'123456789'
 */
 
 function interpret(code) {
+  console.log(code);
   let rows = code.split('\n');
   let output = '';
   let stack = [];
@@ -48,7 +49,7 @@ function interpret(code) {
     }
     //integers
     if (cur.match(/[0-9]/)) {
-      stack.push(cur);
+      stack.push(parseInt(cur));
     }
     //math operators
     if (cur.match(/[\+\-\*\/\%\`]/)) {
@@ -81,7 +82,7 @@ function interpret(code) {
     //duplicate
     if (cur === ':') {
       let top = stack.pop();
-      if (top) {
+      if (top !== undefined) {
         stack.push(top);
         stack.push(top);
       } else {
@@ -89,7 +90,12 @@ function interpret(code) {
       }
     }
     //swap
-
+    if (cur === '\\') {
+      let a = stack.pop();
+      let b = stack.pop() || 0;
+      stack.push(a);
+      stack.push(b);
+    }
     //trampoline
 
     //end of input
