@@ -33,9 +33,24 @@ getStartTime(schedules, 60); //12:15
 getStartTime(schedules, 90); //null
 
 function getStartTime(schedules, duration) {
+  //initialize array to keep track of potential start times
   //for each person (row)
+    //initialize temporary array to keep track of meeting times that still work
     //for each meeting
       //calculate time between its end and the next start (or end of day)
-      //if this time is less than duration
-        //add to some object of potential start times
+      //if this time chunk is greater than duration
+        //if this is the first person
+          //add as tuple to temp array
+        //else
+          //if start time of chunk is within any tuples in array of potential start times AND
+            //the start time of chunk plus the duration is also within this tuple
+            //update the start time and add this to temp array
+          //else if the end time of chunk is within any tuples AND the end time minus duraction also within tuple
+            //update the end time and add this to temp array
+          // else if the start time and end time of chunk surround a tuple
+            //add tuple as-is to temp array
+    //if the temp array is empty
+      //return null -- there are no possible times for all people to attend a meeting
+    //reassign the array of potential start times to the temp array
+  //return the first value of the first tuple in the array
 }
