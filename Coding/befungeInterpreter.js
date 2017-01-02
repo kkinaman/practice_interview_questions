@@ -44,8 +44,8 @@ function interpret(code) {
   let direction = 'r'; //default direction is to the right
   while (processing) {
     //directional operations
-    if (cur.match(/[\>\<\^v]/)) {
-      direction = cur === '>' ? 'r' : cur === '<' ? 'l' : cur === '^' ? 'u' : cur === 'v' ? 'd' : directions[Math.floor(Math.random * 4)];
+    if (cur.match(/[\>\<\^v?]/)) {
+      direction = cur === '>' ? 'r' : cur === '<' ? 'l' : cur === '^' ? 'u' : cur === 'v' ? 'd' : directions[Math.floor(Math.random() * 4)];
     }
     //integers
     if (cur.match(/[0-9]/)) {
@@ -65,22 +65,33 @@ function interpret(code) {
       cur === '_' ? val === 0 ? direction = 'r' : direction = 'l' : cur === '|' ? val === 0 ? direction = 'd' : direction = 'u' :
         cur === '.' ? output = output.concat(parseInt(val)) : cur === ',' ? output = output.concat(String.fromCharCode(val)) : null;
     }
-    //put & get
-    //g Pop y and x, then push ASCII value of the character at that position in the program.
+    //put: Pop y, x and v, then change the character at the position (x,y) in the program to the character with ASCII value v.
+    if (cur === 'p') {
+      let y = stack.pop();
+      let x = stack.pop();
+      let v = stack.pop();
+      let newRow = rows[y].split('');
+      newRow[x] = String.fromCharCode(v);
+      rows[y] = newRow.join('');
+    }
+    //get: Pop y and x, then push ASCII value of the character at that position in the program.
     if (cur === 'g') {
       let y = stack.pop();
       let x = stack.pop();
       stack.push(rows[y][x].charCodeAt(0));
     }
-    //logical not
-
+    //logical not Pop a value. If the value is zero, push 1; otherwise, push zero.
+    if (cur === '!') {
+      let temp = stack.pop() === 0 ? 1 : 0;
+      stack.push(temp);
+    }
     //string
     if (cur === '"') {
-      col++;
+      direction === 'r' ? col++ : col--;
       cur = rows[row][col];
       while (cur !== '"') {
         stack.push(cur.charCodeAt(0));
-        col++;
+        direction === 'r' ? col++ : col--;
         cur = rows[row][col];
       }
     }
