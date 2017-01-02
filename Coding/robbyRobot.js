@@ -50,5 +50,26 @@ Each test case has exactly one solution (= only one shortest command list)
 */
 
 function getCommands(field, power) {
-  // insert awesome code here
+  let board = makeBoardFromString(field); //convert the string into a matrix
+  let start = findChar('S', field);
+  let target = findChar('T', field);
+}
+
+function makeBoardFromString(input) {
+  let size = Math.sqrt(input.length);
+  let tracker = 0;
+  let board = [];
+  while (tracker < input.length) {
+    let row = [];
+    for (var i = tracker; i < tracker + size; i++) {
+      row.push(input[i]);
+    }
+    board.push(row);
+    tracker = i;
+  }
+  return board;
+}
+
+function findChar(c, str) {
+  return [str.indexOf(c) / Math.floor(Math.sqrt(str.length)), str.indexOf(c) % Math.sqrt(str.length)];
 }
