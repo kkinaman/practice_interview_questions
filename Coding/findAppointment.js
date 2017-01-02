@@ -32,13 +32,26 @@ var schedules = [
 getStartTime(schedules, 60); //12:15
 getStartTime(schedules, 90); //null
 
+function timeBetween(start, end) { //start and end are strings in military time format HH:MM
+  let h1 = parseInt(start.split(':')[0]);
+  let h2 = parseInt(end.split(':')[0]);
+  let m1 = parseInt(start.split(':')[1]);
+  let m2 = parseInt(end.split(':')[1]);
+  return (h2 * 60 + m2) - (h1 * 60 + m1);
+}
+
 function getStartTime(schedules, duration) {
   //initialize array to keep track of potential start times
+  let potentialTimes = [];
   //for each person (row)
+  for (let i = 0; i < schedules.length; i++) {
+    let meetings = schedules[i];
     //initialize temporary array to keep track of meeting times that still work
+    let tempTimes = [];
     //for each meeting
-      //calculate time between its end and the next start (or end of day)
-      //if this time chunk is greater than duration
+    for (let j = 0; j < meetings.length; j++) {
+      //if time between its end and the next start (or end of day) is greater than duration
+      if (timeBetween(meetings[j][1], meetings[j + 1][0] || '19:00') > duration) {
         //if this is the first person
           //add as tuple to temp array
         //else
@@ -49,8 +62,12 @@ function getStartTime(schedules, duration) {
             //update the end time and add this to temp array
           // else if the start time and end time of chunk surround a tuple
             //add tuple as-is to temp array
+      }
+    }
     //if the temp array is empty
       //return null -- there are no possible times for all people to attend a meeting
     //reassign the array of potential start times to the temp array
+  }
   //return the first value of the first tuple in the array
+  return potentialTimes[0][0];
 }
