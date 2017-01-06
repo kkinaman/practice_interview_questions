@@ -76,10 +76,10 @@ function getStartTime(schedules, duration) {
     let tempTimes = [];
     //for each meeting
     for (let j = -1; j < meetings.length; j++) {
-      let startTime = j < 0 ? '9:00' : meetings[j][1];
+      let startTime = j < 0 ? '09:00' : meetings[j][1];
       let endTime = meetings[j + 1] ? meetings[j + 1][0] : '19:00';
-      //if time between meetings is greater than duration
-      if (timeBetween(startTime, endTime) > duration) {
+      //if time between meetings allows duration
+      if (timeBetween(startTime, endTime) >= duration) {
         //if this is the first person
         if (i === 0) {
           //add as tuple to temp array
