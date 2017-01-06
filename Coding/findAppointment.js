@@ -55,11 +55,22 @@ function timeIsWithinRange(time, range) {
 //parameters: time is a string, minutes is an integer
 //output: time as string
 function timePlusMinutes(time, minutes) { 
-  let hour = parseInt(time.split(':')[0]);
-  let minute = parseInt(time.split(':')[1]) + minutes;
+  let hour = parseInt(time.split(':')[0]) + Math.floor(minutes / 60);
+  let minute = parseInt(time.split(':')[1]) + (minutes % 60);
   if (minute >= 60) {
     hour++;
     minute -= 60;
+  }
+  minute = minute < 9 ? '0' + minute : minute;
+  return hour + ':' + minute;
+}
+
+function timeMinusMinutes(time, minutes) {
+  let hour = parseInt(time.split(':')[0]) - Math.floor(minutes / 60);
+  let minute = parseInt(time.split(':')[1]) - (minutes % 60);
+  if (minute < 0) {
+    hour--;
+    minute += 60;
   }
   minute = minute < 9 ? '0' + minute : minute;
   return hour + ':' + minute;
@@ -101,7 +112,7 @@ function getStartTime(schedules, duration) {
               tempTimes.push([startTime, potentialTimes[k][1]]);
             //else if the end time of chunk is within this potential AND the end time minus duraction also within potential
             } else if (timeIsWithinRange(endTime, potentialTimes[k]) &&
-              timeIsWithinRange(timePlusMinutes(endTime, duration * -1), potentialTimes[k])) {
+              timeIsWithinRange(timeMinusMinutes(endTime, duration), potentialTimes[k])) {
               //update the end time and add this to temp array
               tempTimes.push([potentialTimes[k][0], endTime]);
             }
