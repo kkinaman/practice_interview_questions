@@ -66,6 +66,7 @@ function timePlusMinutes(time, minutes) {
 }
 
 function getStartTime(schedules, duration) {
+  console.log(schedules, duration);
   //initialize array to keep track of potential start times
   let potentialTimes = [];
   //for each person (row)
@@ -74,8 +75,8 @@ function getStartTime(schedules, duration) {
     //initialize temporary array to keep track of meeting times that still work
     let tempTimes = [];
     //for each meeting
-    for (let j = 0; j < meetings.length; j++) {
-      let startTime = meetings[j][1];
+    for (let j = -1; j < meetings.length; j++) {
+      let startTime = j < 0 ? '9:00' : meetings[j][1];
       let endTime = meetings[j + 1] ? meetings[j + 1][0] : '19:00';
       //if time between meetings is greater than duration
       if (timeBetween(startTime, endTime) > duration) {
