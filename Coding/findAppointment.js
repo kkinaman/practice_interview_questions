@@ -90,6 +90,10 @@ function getStartTime(schedules, duration) {
             //if both start and end are within this potential time
             if (timeIsWithinRange(startTime, potentialTimes[k]) && timeIsWithinRange(endTime, potentialTimes[k])) {
               tempTimes.push([startTime, endTime]);
+            //if start and end wrap around potential time
+            } else if (timeIsWithinRange(potentialTimes[k][0], [startTime, endTime]) && 
+              timeIsWithinRange(potentialTimes[k][1], [startTime, endTime])) {
+              tempTimes.push(potentialTimes[k]);
             //if start time of chunk is within this potential AND the start time of chunk plus the duration is also within this potential
             } else if (timeIsWithinRange(startTime, potentialTimes[k]) && 
               timeIsWithinRange(timePlusMinutes(startTime, duration), potentialTimes[k])) {
