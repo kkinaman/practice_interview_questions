@@ -40,6 +40,31 @@ function timeBetween(start, end) { //start and end are strings in military time 
   return (h2 * 60 + m2) - (h1 * 60 + m1);
 }
 
+//parameters: time is a string, range is a tuple of time strings
+//output: boolean
+function timeIsWithinRange(time, range) { 
+  let targetH = parseInt(time.split(':')[0]);
+  let targetM = parseInt(time.split(':')[1]);
+  let h1 = parseInt(range[0].split(':')[0]);
+  let h2 = parseInt(range[1].split(':')[0]);
+  let m1 = parseInt(range[0].split(':')[1]);
+  let m2 = parseInt(range[1].split(':')[1]);
+  return (h1 * 60 + m1 <= targetH * 60 + targetM) && (targetH * 60 + targetM <= h2 * 60 + m2);
+}
+
+//parameters: time is a string, minutes is an integer
+//output: time as string
+function timePlusMinutes(time, minutes) { 
+  let hour = parseInt(time.split(':')[0]);
+  let minute = parseInt(time.split(':')[1]) + minutes;
+  if (minute >= 60) {
+    hour++;
+    minute -= 60;
+  }
+  minute = minute < 9 ? '0' + minute : minute;
+  return hour + ':' + minute;
+}
+
 function getStartTime(schedules, duration) {
   //initialize array to keep track of potential start times
   let potentialTimes = [];
@@ -50,23 +75,43 @@ function getStartTime(schedules, duration) {
     let tempTimes = [];
     //for each meeting
     for (let j = 0; j < meetings.length; j++) {
-      //if time between its end and the next start (or end of day) is greater than duration
-      if (timeBetween(meetings[j][1], meetings[j + 1][0] || '19:00') > duration) {
+      let startTime = meetings[j][1];
+      let endTime = meetings[j + 1] ? meetings[j + 1][0] : '19:00';
+      //if time between meetings is greater than duration
+      if (timeBetween(startTime, endTime) > duration) {
         //if this is the first person
+        if (i === 0) {
           //add as tuple to temp array
-        //else
-          //if start time of chunk is within any tuples in array of potential start times AND
-            //the start time of chunk plus the duration is also within this tuple
-            //update the start time and add this to temp array
-          //else if the end time of chunk is within any tuples AND the end time minus duraction also within tuple
-            //update the end time and add this to temp array
-          // else if the start time and end time of chunk surround a tuple
-            //add tuple as-is to temp array
+          tempTimes.push([startTime, endTime]);
+        } else {
+          //for each potential meeting time already saved
+          for (let k = 0; k < potentialTimes.length; k++) {
+            //if both start and end are within this potential time
+            if (timeIsWithinRange(startTime, potentialTimes[k]) && timeIsWithinRange(endTime, potentialTimes[k])) {
+              tempTimes.push([startTime, endTime]);
+            //if start time of chunk is within this potential AND the start time of chunk plus the duration is also within this potential
+            } else if (timeIsWithinRange(startTime, potentialTimes[k]) && 
+              timeIsWithinRange(timePlusMinutes(startTime, duration), potentialTimes[k])) {
+              //update the start time and add this to temp array
+              tempTimes.push([startTime, potentialTimes[k][1]]);
+            //else if the end time of chunk is within this potential AND the end time minus duraction also within potential
+            } else if (timeIsWithinRange(endTime, potentialTimes[k]) &&
+              timeIsWithinRange(timePlusMinutes(endTime, duration * -1), potentialTimes[k])) {
+              //update the end time and add this to temp array
+              tempTimes.push([potentialTimes[k][0], endTime]);
+            }
+          }
+        }
       }
     }
     //if the temp array is empty
+    if (tempTimes.length === 0) {
       //return null -- there are no possible times for all people to attend a meeting
-    //reassign the array of potential start times to the temp array
+      return null;
+    } else {
+      //reassign the array of potential start times to the temp array
+      potentialTimes = tempTimes;
+    }
   }
   //return the first value of the first tuple in the array
   return potentialTimes[0][0];
