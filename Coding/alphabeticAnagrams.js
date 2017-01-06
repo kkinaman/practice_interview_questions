@@ -49,7 +49,7 @@ function listPosition(word) {
   let combinations = lowerLetters.reduce((sum, letter) => {
     let temp = Object.assign({}, letterCount);
     temp[letter]--;
-    return sum + factorial(word.length - 1) / factorial(Object.keys(temp).reduce((acc, cur) => temp[cur] > 1 ? acc * factorial(temp[cur]) : acc, 1));
+    return sum + factorial(word.length - 1) / Object.keys(temp).reduce((acc, cur) => temp[cur] > 1 ? acc * factorial(temp[cur]) : acc, 1);
   }, 0);
   return combinations + listPosition(word.slice(1));
 }
