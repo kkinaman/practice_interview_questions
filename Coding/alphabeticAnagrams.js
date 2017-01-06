@@ -33,21 +33,25 @@ function listPosition(word) {
   if (word.length === 1) {
     return 1;
   }
-  //return the number of letters in the word that come before the first letter * the number of permutations of letters minus the first
-    // plus the listPosition (recursive) of the word minus the first letter 
   let firstLetter = word[0];
-  let letterCount = {};
-  let nthLetter = word.slice(1).split('').reduce((acc, cur) => {
-    if (letterCount.hasOwnProperty(cur)) {
-      letterCount[cur]++;
-      return acc;
+  let lowerLetters = [];
+  let letterCount = word.split('').reduce((acc, cur) => {
+    if (acc[cur]) {
+      acc[cur]++;
     } else {
-      letterCount[cur] = 1;
-      return cur < firstLetter ? acc + 1 : acc;
+      acc[cur] = 1;
+      if (cur < firstLetter) {
+        lowerLetters.push(cur);
+      }
     }
+    return acc;
+  }, {});
+  let combinations = lowerLetters.reduce((sum, letter) => {
+    let temp = Object.assign({}, letterCount);
+    temp[letter]--;
+    return sum + factorial(word.length - 1) / factorial(Object.keys(temp).reduce((acc, cur) => temp[cur] > 1 ? acc * factorial(temp[cur]) : acc, 1));
   }, 0);
-  console.log(nthLetter);
-  return nthLetter * factorial(word.length - 1) / factorial(Object.keys(letterCount).reduce((acc, cur) => letterCount[cur] > 1 ? acc * factorial(letterCount[cur]) : acc, 1)) + listPosition(word.slice(1));
+  return combinations + listPosition(word.slice(1));
 }
 
 
