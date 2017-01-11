@@ -36,9 +36,21 @@ ListNode.prototype.toString = function() {
   return output;
 };
 
-ListNode.prototype.head = function() { /* implement this */ };
-ListNode.prototype.tail = function() { /* implement this */  };
-ListNode.prototype.length = function() { /* implement this */ };
+ListNode.prototype.head = function() {
+  return this.value;
+};
+ListNode.prototype.tail = function() {
+  return this.next;
+};
+ListNode.prototype.length = function() {
+  let iter = this;
+  let counter = 0;
+  while (!(iter instanceof EmptyList)) {
+    counter++;
+    iter = iter.next;
+  }
+  return counter;
+};
 ListNode.prototype.push = function(x) {
   return new ListNode(x, this);
 };
@@ -56,6 +68,9 @@ var list1 = list0.push(3);          // => "(3)"
 var list2 = list1.push(2);          // => "(2 3)"
 var list3 = list2.push(1);          // => "(1 2 3)"
 console.log(list3.toString());      // '(1 2 3)'
+console.log(list3.length());        // 3
+console.log(list3.head());          // 1
+console.log(list3.tail());    
 // var list13 = list1.append(list3);   // => "(3 1 2 3)"
 
 // list13.head();   // => 3
