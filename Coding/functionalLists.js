@@ -24,7 +24,17 @@ ListNode.prototype.isEmpty = function() {
   return !!this.value;
 };
 
-ListNode.prototype.toString = function() { /* implement this */ };
+ListNode.prototype.toString = function() {
+  let output = '(';
+  let iter = this;
+  while (!(iter instanceof EmptyList)) {
+    output += iter.value + ' ';
+    iter = iter.next;
+  }
+  output = output.trim();
+  output += ')';
+  return output;
+};
 
 ListNode.prototype.head = function() { /* implement this */ };
 ListNode.prototype.tail = function() { /* implement this */  };
@@ -37,18 +47,20 @@ ListNode.prototype.append = function(xs) { /* implement this */ };
 
 
 let a = new EmptyList();
-console.log(a.toString());
-console.log(a.isEmpty());
-console.log(a.length());
+console.log(a.toString()); // ()
+console.log(a.isEmpty());  // true
+console.log(a.length());   // 0
 
 var list0 = new EmptyList();        // => "()"
 var list1 = list0.push(3);          // => "(3)"
 var list2 = list1.push(2);          // => "(2 3)"
 var list3 = list2.push(1);          // => "(1 2 3)"
-var list13 = list1.append(list3);   // => "(3 1 2 3)"
+console.log(list3.toString());      // '(1 2 3)'
+// var list13 = list1.append(list3);   // => "(3 1 2 3)"
 
-list13.head();   // => 3
-list13.tail();   // => list3
+// list13.head();   // => 3
+// list13.tail();   // => list3
 
-list1 instanceof ListNode;
-list1.tail() instanceof EmptyList;
+console.log(list1 instanceof ListNode); // true
+console.log(list0 instanceof EmptyList); // true
+console.log(list1.tail() instanceof EmptyList); //true
