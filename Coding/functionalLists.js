@@ -61,6 +61,12 @@ ListNode.prototype.push = function(x) {
 ListNode.prototype.remove = function(x) {
   let newList = new EmptyList();
   let iter = this;
+  let backwardList = new EmptyList();
+  while (!(iter instanceof EmptyList)) {
+    backwardList = new ListNode(iter.value, backwardList);
+    iter = iter.next;
+  }
+  iter = backwardList;
   while (!(iter instanceof EmptyList)) {
     if (iter.value !== x) {
       newList = new ListNode(iter.value, newList);
