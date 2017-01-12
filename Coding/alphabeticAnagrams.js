@@ -54,5 +54,7 @@ function listPosition(word) {
   return combinations + listPosition(word.slice(1));
 }
 
+console.log(listPosition('question'));
+
 
 
