@@ -25,7 +25,8 @@ function ListNode(value, next) {
 ListNode.prototype = new List();
 ListNode.prototype.constructor = ListNode;
 ListNode.prototype.isEmpty = function() {
-  return !!this.value;
+  console.log(this.value);
+  return !this.value;
 };
 
 ListNode.prototype.toString = function() {
