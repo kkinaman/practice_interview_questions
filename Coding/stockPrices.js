@@ -1,3 +1,6 @@
+//given an array of stock prices arr[i] posted at time i, output the largest profit than can be made
+  //by buying at time n and selling at time m, where m > n
+
 function getMaxProfit(stockPrices) {
   //start min pointer at 0
   let minP = 0;
@@ -14,22 +17,19 @@ function getMaxProfit(stockPrices) {
     minP++;
     maxP++;
     //if the difference between the new max and new min is greater than current profit
-    if (stockPrices[maxP] - stockPrices[minP] > largestProfit) {
+    if (stockPrices[maxP] - stockPrices[minP] > largestProfit || stockPrices[maxP] - curMin > largestProfit) {
       curMax = stockPrices[maxP];
       //ensure that keeping min where it is wouldn't be a bigger profit before updating min
       if (stockPrices[maxP] - curMin < stockPrices[maxP] - stockPrices[minP]) {
         curMin = stockPrices[minP];
       }
       largestProfit = curMax - curMin;
-    } else if (stockPrices[maxP] - curMin > largestProfit) {
-      curMax = stockPrices[maxP];
-      largestProfit = curMax - curMin;
-    }
+    } 
   }
   return largestProfit;
 }
 
-var stockPricesYesterday = [10, 7, 5, 8, 6, 11, 9]; // 6
+var stockPricesYesterday = [5, 7, 5, 8, 6, 11, 9]; // 6
 // var stockPricesYesterday = [10, 8, 5, 4, 1, 0]; // -1
 
 console.log(getMaxProfit(stockPricesYesterday));
