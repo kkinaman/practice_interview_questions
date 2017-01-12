@@ -1,5 +1,9 @@
-//given an array of stock prices arr[i] posted at time i, output the largest profit than can be made
-  //by buying at time n and selling at time m, where m > n
+/* 
+Given an array of stock prices arr[i] posted at time i, output the largest profit than can be made
+  by buying at time n and selling at time m, where m > n
+
+Contraints: O(n) time, O(1) space
+*/
 
 function getMaxProfit(stockPrices) {
   //start min pointer at 0
