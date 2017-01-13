@@ -23,10 +23,8 @@ function getMaxProfit(stockPrices) {
     //if the difference between the new max and new min is greater than current profit
     if (stockPrices[maxP] - stockPrices[minP] > largestProfit || stockPrices[maxP] - curMin > largestProfit) {
       curMax = stockPrices[maxP];
-      //ensure that keeping min where it is wouldn't be a bigger profit before updating min
-      if (stockPrices[maxP] - curMin < stockPrices[maxP] - stockPrices[minP]) {
-        curMin = stockPrices[minP];
-      }
+      //only update min if it's smaller than the current min
+      curMin = Math.min(curMin, stockPrices[minP]);
       largestProfit = curMax - curMin;
     } 
   }
