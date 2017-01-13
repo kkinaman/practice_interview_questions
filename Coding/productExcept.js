@@ -8,10 +8,15 @@ Example:
 */
 
 function productExcept(initArray) {
-  return initArray.map((element, i) => {
-    return initArray.reduce((acc, cur) => cur === element ? acc : acc * cur, 1);
+  let products = [];
+  let productSoFar = 1;
+  initArray.forEach((element, i) => {
+    products.push(productSoFar * initArray.slice(i + 1).reduce((acc, cur) => acc * cur, 1));
+    productSoFar *= element;
   });
+  return products;
 }
 
-let input = [1, 7, 3, 4];
-console.log(productExcept(input));
+var initArray = [1, 7, 3, 4];
+// var initArray = [1, 0, 2, 5];
+console.log(productExcept(initArray));
