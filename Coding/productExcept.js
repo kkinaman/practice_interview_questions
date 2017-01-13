@@ -10,13 +10,20 @@ Example:
 function productExcept(initArray) {
   let products = [];
   let productSoFar = 1;
+  //multiply elements before index
   initArray.forEach((element, i) => {
-    products.push(productSoFar * initArray.slice(i + 1).reduce((acc, cur) => acc * cur, 1));
+    products.push(productSoFar);
     productSoFar *= element;
   });
+  //multiply elements after index
+  productSoFar = 1;
+  for (let i = initArray.length - 1; i >= 0; i--) {
+    products[i] = products[i] * productSoFar;
+    productSoFar *= initArray[i];
+  }
   return products;
 }
 
-var initArray = [1, 7, 3, 4];
-// var initArray = [1, 0, 2, 5];
+// var initArray = [1, 7, 3, 4];
+var initArray = [1, 0, 2, 5];
 console.log(productExcept(initArray));
