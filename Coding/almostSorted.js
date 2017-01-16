@@ -38,17 +38,17 @@ function finishSort(arr) {
       if (isDecreasing) {
         isDecreasing = false;
         if (i - indexOfFirstDecrease > 2) {
-          reverse(indexOfFirstDecrease, i);
+          reverse(indexOfFirstDecrease, i - 1);
         }
         //else continue -- it was a single element out of order -- maybe we can swap
       }
     }
   }
   if (!operationDone) {
+    //if there was an element(s) to be swapped/reversed, check if can do with last element
     if (indexOfFirstDecrease !== null) {
       let i = n - 1;
       if (i - indexOfFirstDecrease > 2) {
-        //reverse
         reverse(indexOfFirstDecrease, i);
       } else {
         swap(indexOfFirstDecrease, i);
@@ -88,7 +88,26 @@ function finishSort(arr) {
   }
 }
 
+//reversing in middle of array
+console.log(finishSort([1, 5, 4, 3, 6]));   //reverse 2 4
+//reversing with last element
 console.log(finishSort([1, 5, 4, 3, 2]));   //reverse 2 5
+//reverse with first element
+console.log(finishSort([3, 2, 1, 4]));      //reverse 1 3
+//reverse entire array
+console.log(finishSort([4, 3, 2, 1]));      //reverse 1 4
+//swap when only two elements
 console.log(finishSort([4, 2]));            //swap 1 2
-console.log(finishSort([3, 1, 2]));         //no
+//swap when includes last element
 console.log(finishSort([1, 9, 5, 7, 3]));   //swap 2 5
+//swap when includes first element
+console.log(finishSort([4, 2, 3, 1, 5]));   //swap 1 4
+//swap rather than reverse
+console.log(finishSort([3, 2, 1]));         //swap 1 3
+//TODO: SHOULD SWAP swap rather than reverse
+console.log(finishSort([3, 2, 1, 4]));      //swap 1 3
+//negative elements swap
+console.log(finishSort([-1, -3, -2, -4]));  //swap 1 4
+//negative elements reverse
+console.log(finishSort([-2, -3, -4, -5]));      //reverse 1 5
+console.log(finishSort([3, 1, 2]));         //no
