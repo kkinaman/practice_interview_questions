@@ -9,66 +9,63 @@ Possible operations are: swap(a, b) and reverse(a, b)
 function finishSort(arr) {  
   let n = arr.length;
 
-  let hasDecreased = false;
-  let decStart = 0;
-  let decEnd = 0;
-  let decreaseEnded = false;
+  let isDecreasing = false;
+  let indexOfFirstDecrease = null;
+  let operationDone = false;
+  let operationCommand = '';
+  //for each element in array
   for (let i = 1; i < n; i++) {
-    if (arr[i] < arr[i - 1]) {
-      if (!hasDecreased) {
-        //decreasing for the first time
-        decStart = i - 1;
-        hasDecreased = true;
-      } else {
-        if (decreaseEnded) {
-          //decreasing for a second time -- not solvable in one operation
-          console.log('no');
-          return;
-        } else {
-          //still decreasing from first time
-        }
-      }
-    } else {
-      if (hasDecreased) {
-        //decreasing has just ended
-        decEnd = i - 1;
-        decreaseEnded = true;
-      }
-    }
-  }
-  if (hasDecreased && decEnd === 0) {
-    decEnd = n - 1;
-  }
-  if (!hasDecreased && !decreaseEnded) {
-    console.log('yes');
-    return;
-  }
-  if (decEnd - decStart > 1) {
-    //reverse
-    if (decEnd - decStart + 1 === n || arr[decStart] < arr[decEnd + 1] && arr[decEnd] > arr[decStart - 1]) {
-      console.log('yes');
-      console.log('reverse', decStart + 1, decEnd + 1);
-      return;
-    } else {
-      console.log('no');
-      return;
-    }
-  } else {
-    //swap
-    let temp = arr[decEnd];
-    arr[decEnd] = arr[decStart];
-    arr[decStart] = temp;
-    for (let i = 1; i < n; i++) {
-      if (arr[i] < arr[i - 1]) {
+    //decreasing
+    if (arr[i - 1] > arr[i]) {
+      //if an operation has already occurred, can't do another, so not possible
+      if (operationDone) {
         console.log('no');
         return;
       }
+      //if has already decreased but was not just decreasing, consider a swap
+      if (indexOfFirstDecrease !== null && !isDecreasing) {
+        //swap e.g [1, 9, 5, 7, 3]
+        let temp = arr[i];
+        arr[i] = arr[indexOfFirstDecrease];
+        arr[indexOfFirstDecrease] = temp;
+        operationCommand = 'swap ' + indexOfFirstDecrease + ' ' + i;
+        operationDone = true;
+      //...
+      } else {
+        isDecreasing = true;
+        //want to store incase its a swap
+        indexOfFirstDecrease = indexOfFirstDecrease === null ? i - 1 : indexOfFirstDecrease;
+      }
+    //increasing
+    } else {
+      //if it was previously decreasing
+      if (isDecreasing) {
+        isDecreasing = false;
+        if (i - indexOfFirstDecrease > 2) {
+          //reverse
+          let startReverse = indexOfFirstDecrease === 0 ? 0 : indexOfFirstDecrease - 1;
+          let endReverse = i === n - 1 ? i : i + 1;
+          if (arr[indexOfFirstDecrease] <= endReverse && arr[i] >= startReverse) {
+            operationCommand = 'reverse ' + indexOfFirstDecrease + ' ' + i;
+            operationDone = true;
+          } else {
+            console.log('no');
+            return;
+          }
+        }
+        //else continue -- it was a single element out of order -- maybe we can swap
+      }
     }
+  }
+  if (operationDone) {
     console.log('yes');
-    console.log('swap', decStart + 1, decEnd + 1);
+    console.log(operationCommand);
+  } else {
+    console.log('no');
   }
 }
 
-console.log(finishSort([1, 5, 4, 3, 2, 6]));
-console.log(finishSort([4, 2]));
-console.log(finishSort([3, 1, 2]));
+// console.log(finishSort([1, 5, 4, 3, 2, 6]));
+// console.log(finishSort([4, 2]));
+// console.log(finishSort([3, 1, 2]));
+console.log(finishSort([1, 9, 5, 7, 3]));
