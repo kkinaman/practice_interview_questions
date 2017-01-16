@@ -45,9 +45,9 @@ function finishSort(arr) {
   }
   if (decEnd - decStart > 1) {
     //reverse
-    if (arr[decStart] < arr[decEnd + 1] && arr[decEnd] > arr[decStart - 1]) {
+    if (decEnd - decStart + 1 === n || arr[decStart] < arr[decEnd + 1] && arr[decEnd] > arr[decStart - 1]) {
       console.log('yes');
-      console.log('reverse', decStart, decEnd);
+      console.log('reverse', decStart + 1, decEnd + 1);
       return;
     } else {
       console.log('no');
@@ -71,3 +71,4 @@ function finishSort(arr) {
 
 console.log(finishSort([1, 5, 4, 3, 2, 6]));
 console.log(finishSort([4, 2]));
+console.log(finishSort([3, 1, 2]));
