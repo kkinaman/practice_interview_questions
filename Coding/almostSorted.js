@@ -28,7 +28,7 @@ function finishSort(arr) {
         let temp = arr[i];
         arr[i] = arr[indexOfFirstDecrease];
         arr[indexOfFirstDecrease] = temp;
-        operationCommand = 'swap ' + indexOfFirstDecrease + ' ' + i;
+        operationCommand = 'swap ' + (indexOfFirstDecrease + 1) + ' ' + (i + 1);
         operationDone = true;
       //...
       } else {
@@ -43,10 +43,10 @@ function finishSort(arr) {
         isDecreasing = false;
         if (i - indexOfFirstDecrease > 2) {
           //reverse
-          let startReverse = indexOfFirstDecrease === 0 ? 0 : indexOfFirstDecrease - 1;
-          let endReverse = i === n - 1 ? i : i + 1;
+          let startReverse = indexOfFirstDecrease === 0 ? -Infinity : arr[indexOfFirstDecrease - 1];
+          let endReverse = i === n - 1 ? Infinity : arr[i + 1];
           if (arr[indexOfFirstDecrease] <= endReverse && arr[i] >= startReverse) {
-            operationCommand = 'reverse ' + indexOfFirstDecrease + ' ' + i;
+            operationCommand = 'reverse ' + (indexOfFirstDecrease + 1) + ' ' + (i + 1);
             operationDone = true;
           } else {
             console.log('no');
@@ -54,6 +54,35 @@ function finishSort(arr) {
           }
         }
         //else continue -- it was a single element out of order -- maybe we can swap
+      }
+    }
+  }
+  if (!operationDone) {
+    if (indexOfFirstDecrease !== null) {
+      let i = n - 1;
+      if (i - indexOfFirstDecrease > 2) {
+        //reverse
+        let startReverse = indexOfFirstDecrease === 0 ? -Infinity : arr[indexOfFirstDecrease - 1];
+        let endReverse = i === n - 1 ? Infinity : arr[i + 1];
+        if (arr[indexOfFirstDecrease] <= endReverse && arr[i] >= startReverse) {
+          operationCommand = 'reverse ' + (indexOfFirstDecrease + 1) + ' ' + (i + 1);
+          operationDone = true;
+        } else {
+          console.log('no');
+          return;
+        }
+      } else {
+        //swap
+        let temp = arr[i];
+        arr[i] = arr[indexOfFirstDecrease];
+        arr[indexOfFirstDecrease] = temp;
+        operationCommand = 'swap ' + (indexOfFirstDecrease + 1) + ' ' + (i + 1);
+        operationDone = true;
+        for (let j = 1; j < n; j++) {
+          if (arr[j - 1] > arr[j]) {
+            operationDone = false;
+          }
+        }
       }
     }
   }
@@ -65,7 +94,7 @@ function finishSort(arr) {
   }
 }
 
-// console.log(finishSort([1, 5, 4, 3, 2, 6]));
-// console.log(finishSort([4, 2]));
-// console.log(finishSort([3, 1, 2]));
-console.log(finishSort([1, 9, 5, 7, 3]));
+console.log(finishSort([1, 5, 4, 3, 2]));   //reverse 2 5
+console.log(finishSort([4, 2]));            //swap 1 2
+console.log(finishSort([3, 1, 2]));         //no
+console.log(finishSort([1, 9, 5, 7, 3]));   //swap 2 5
