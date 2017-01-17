@@ -62,6 +62,8 @@ function finishSort(arr) {
   if (operationDone) {
     console.log('yes');
     console.log(operationCommand);
+  } else if (!isDecreasing && indexOfFirstDecrease === null) {
+    console.log('yes');
   } else {
     console.log('no');
   }
@@ -108,10 +110,12 @@ console.log(finishSort([1, 9, 5, 7, 3]));   //swap 2 5
 console.log(finishSort([4, 2, 3, 1, 5]));   //swap 1 4
 //swap rather than reverse
 console.log(finishSort([3, 2, 1]));         //swap 1 3
-//swap rather than reverse
 console.log(finishSort([0, 3, 2, 1, 4, 5]));//swap 2 4
+console.log(finishSort([1, 2, 3, 6, 5, 4]));//swap 4 6
 //negative elements swap
 console.log(finishSort([-1, -3, -2, -4]));  //swap 1 4
 //negative elements reverse
 console.log(finishSort([-2, -3, -4, -5]));  //reverse 1 4
 console.log(finishSort([3, 1, 2]));         //no
+console.log(finishSort([1, 3, 100, 2000, 12301498]));   //yes
+console.log(finishSort([-5, -4, -3, -2, -1]));
