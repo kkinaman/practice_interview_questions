@@ -48,6 +48,7 @@ ListNode.prototype.tail = function() {
   return this.next;
 };
 ListNode.prototype.length = function() {
+console.log(this);
   let iter = this;
   let counter = 0;
   while (!(iter instanceof EmptyList)) {
@@ -57,9 +58,10 @@ ListNode.prototype.length = function() {
   return counter;
 };
 ListNode.prototype.push = function(x) {
-  return new ListNode(x, new ListNode(this.value, this.next));
+  return new ListNode(x, this);
 };
 ListNode.prototype.remove = function(x) {
+  console.log('remove', x, 'from', this);
   let newList = new EmptyList();
   let iter = this;
   let backwardList = new EmptyList();
