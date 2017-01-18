@@ -49,7 +49,7 @@ function largestProductOfThree(arrayOfInts) {
         lowestNegatives = [cur, Math.min(lowestNegatives[0], lowestNegatives[1])];
       }
     } else {
-      hasZero = true
+      hasZero = true;
     }
   }
   return largestProduct < 0 ? hasZero ? 0 : largestProduct : largestProduct;
