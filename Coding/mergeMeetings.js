@@ -18,6 +18,7 @@ Example:
         {startTime: 9, endTime: 12}
         ]
 
+Constraints: can be done in O(nlogn) time
 */
 
 //TODO: Optimize based on interviewcake suggestions
@@ -27,7 +28,7 @@ function mergeMeetings(meetingTimes) {
   meetingTimes.forEach(meeting => {
     //mark every 30 min slot if it is busy
     for (let i = meeting.startTime; i < meeting.endTime; i++) {
-      busyTimes[i] = i;
+      busyTimes[i] ? null : busyTimes[i] = i;
     }
   });
   let times = Object.keys(busyTimes).map(Number);
@@ -51,5 +52,14 @@ var input = [
   {startTime: 4, endTime: 8},
   {startTime: 10, endTime: 12},
   {startTime: 9, endTime: 10}
+];
+
+input = [{startTime: 1, endTime: 2}, {startTime: 2, endTime: 3}];
+input = [{startTime: 1, endTime: 5}, {startTime: 2, endTime: 3}];
+input = [
+    {startTime: 1, endTime: 10},
+    {startTime: 2, endTime: 6},
+    {startTime: 3, endTime: 5},
+    {startTime: 7, endTime: 9},
 ];
 console.log(mergeMeetings(input));
