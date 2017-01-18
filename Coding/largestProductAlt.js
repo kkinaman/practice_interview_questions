@@ -13,13 +13,16 @@ function largestProductOfThree(arrayOfInts) {
   let largestProduct = -Infinity;
   let highestPositives = [];
   let lowestNegatives = [];
+  let hasZero = false;
 
   for (let i = 0; i < 2; i++) {
     let cur = arrayOfInts[i];
     if (cur > 0) {
       highestPositives.push(cur);
-    } else {
+    } else if (cur < 0) {
       lowestNegatives.push(cur);
+    } else {
+      hasZero = true;
     }
   }
 
@@ -45,9 +48,11 @@ function largestProductOfThree(arrayOfInts) {
       } else if (cur < Math.max(lowestNegatives[0], lowestNegatives[1])) {
         lowestNegatives = [cur, Math.min(lowestNegatives[0], lowestNegatives[1])];
       }
+    } else {
+      hasZero = true
     }
   }
-  return largestProduct;
+  return largestProduct < 0 ? hasZero ? 0 : largestProduct : largestProduct;
 }
 
 //all positives
@@ -61,4 +66,4 @@ console.log(largestProductOfThree([2, 5, -6, 7, 1]));   // 70
 console.log(largestProductOfThree([2, -5, -6, 7, 1]));  // 210
 console.log(largestProductOfThree([-1, 2, -3, 4]));     // 12
 //include 0
-console.log(largestProductOfThree([4, 0, -5, 2]));      // 0 TODO
+console.log(largestProductOfThree([4, 0, -5, 2]));      // 0
