@@ -51,6 +51,7 @@ function largestProductOfThree(arrayOfInts) {
   }
   return largestProduct;
 }
+//TODO: Fix todos below
 
 //all positives
 console.log(largestProductOfThree([4, 2, 8, 1, 3]));    // 96

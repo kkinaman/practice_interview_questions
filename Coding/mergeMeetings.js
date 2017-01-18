@@ -20,6 +20,8 @@ Example:
 
 */
 
+//TODO: Optimize based on interviewcake suggestions
+
 function mergeMeetings(meetingTimes) {
   let busyTimes = {};
   meetingTimes.forEach(meeting => {

@@ -6,6 +6,7 @@ Possible operations are: swap(a, b) and reverse(a, b)
 ** Input is indexed from 1 to n
 */
 
+//TODO: Figure out more test cases that would fail (3 failing on hackerrank)
 
 
 function finishSort(arr) {  
