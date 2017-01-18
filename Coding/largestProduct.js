@@ -1,4 +1,6 @@
 /*
+SOLUTION INVOLVING KEEPING TRACK OF HIGHEST AND LOWEST PRODUCTS OF TWO INTEGERS
+
 Given an arrayOfInts, find the largestProductOfThree you can get from three of the integers.
 Constraints: linear time, constant space
 */
