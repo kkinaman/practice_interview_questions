@@ -8,4 +8,18 @@ Output:
 act cat
 spot stop
 go
-/*
+*/
+
+function sortAnagrams(words) {
+  let anagrams = {};
+  words.forEach(word => {
+    let wordCopy = word.split('').sort().join('');
+    anagrams[wordCopy] = anagrams[wordCopy] ? anagrams[wordCopy].concat(word) : [word];
+  });
+  Object.keys(anagrams).forEach(group => {
+    console.log(anagrams[group].join(' '));
+  });
+}
+
+var words = ['act', 'cat', 'spot', 'stop', 'go'];
+console.log(sortAnagrams(words));
