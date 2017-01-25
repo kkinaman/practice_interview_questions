@@ -12,3 +12,30 @@ Temperatures will all be inserted as integers. We'll record our temperatures in 
 
 If there is more than one mode, return any of the modes.
 */
+
+class TempTracker {
+  constructor(props) {
+    this.temps = [];
+  }
+
+  insert(temp) {
+    //might want to sort on push
+    this.temps.push(temp);
+  }
+
+  getMax() {
+    //if temps is sorted, return last
+  }
+
+  getMin() {
+    //if temps is sorted, return first
+  }
+
+  getMean() {
+    //reduce over temps, returning sum and dividing by length of temps
+  }
+
+  getMode() {
+    //iterate over temps, saving counts to an object, and updating a highest occurrence along the way
+  }
+}
