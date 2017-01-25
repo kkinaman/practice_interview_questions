@@ -15,27 +15,54 @@ If there is more than one mode, return any of the modes.
 
 class TempTracker {
   constructor(props) {
-    this.temps = [];
+    this.temps = {};
+    this.lowest = Infinity;
+    this.highest = -Infinity;
+    this.totalForMean = 0;
+    this.numberOfTemps = 0;
+    this.currentMode = {value: null, occurrences: 0};
   }
 
   insert(temp) {
-    //might want to sort on push
-    this.temps.push(temp);
+    this.temps[temp] = this.temps[temp] ? this.temps[temp] + 1 : 1;
+    //update mode if necessary
+    if (this.temps[temp] > this.currentMode.occurrences) {
+      this.currentMode = {value: temp, occurrences: this.temps[temp]};
+    }
+    //if lower than lowest, update
+    this.lowest = Math.min(temp, this.lowest);
+    //if higher than highest, update
+    this.highest = Math.max(temp, this.highest);
+    this.totalForMean += temp;
+    this.numberOfTemps++;
   }
 
   getMax() {
-    //if temps is sorted, return last
+    return this.highest;
   }
 
   getMin() {
-    //if temps is sorted, return first
+    return this.lowest;
   }
 
   getMean() {
-    //reduce over temps, returning sum and dividing by length of temps
+    return this.totalForMean / this.numberOfTemps;
   }
 
   getMode() {
-    //iterate over temps, saving counts to an object, and updating a highest occurrence along the way
+    return this.currentMode.value;
   }
 }
+
+var t = new TempTracker();
+t.insert(100);
+t.insert(70);
+t.insert(62);
+t.insert(104);
+t.insert(100);
+t.insert(51);
+
+console.log(t.getMax());
+console.log(t.getMin());
+console.log(t.getMean());
+console.log(t.getMode());
