@@ -28,8 +28,40 @@ function findRotationPoint(arr) {
   }
 }
 
-var words = [
-  
+var words1 = [ 
+  'ptolemaic',
+  'retrograde',
+  'supplant',
+  'undulate',
+  'xenoepist',
+  'zebra',
+  'asymptote', // <-- rotates here!
+  'babka',
+  'banoffee',
+  'engender',
+  'karpatka',
+  'othellolagkage',
+  'pig',
+];
+
+var words2 = [
+  'asymptote', // <-- rotates here!
+  'babka',
+  'banoffee',
+  'engender',
+  'karpatka',
+  'othellolagkage',
+  'pig',
+  'ptolemaic',
+  'retrograde',
+  'supplant',
+  'undulate',
+  'xenoepist',
+  'zebra',
+];
+
+var words3 = [
+  'babka',
   'banoffee',
   'engender',
   'karpatka',
@@ -42,6 +74,26 @@ var words = [
   'xenoepist',
   'zebra',
   'asymptote', // <-- rotates here!
-  'babka',
 ];
-console.log(findRotationPoint(words));
+
+var words4 = [
+  'karpatka',
+  'othellolagkage',
+  'pig',
+  'ptolemaic',
+  'retrograde',
+  'supplant',
+  'undulate',
+  'xenoepist',
+  'zebra',
+  'asymptote', // <-- rotates here!
+  'babka',
+  'banoffee',
+  'engender',
+];
+
+
+console.log(findRotationPoint(words1)); // 6 middle
+console.log(findRotationPoint(words2)); // 0 first
+console.log(findRotationPoint(words3)); //12 last
+console.log(findRotationPoint(words4)); // 9 random
