@@ -7,6 +7,10 @@ function rand7() {
   return Math.ceil(Math.random() * 7);
 }
 
+function rand5() {
+  return Math.ceil((rand7() * 5) / 7);
+}
+
 for (var i = 0; i < 10; i ++) {
-  console.log(rand7());
+  console.log(rand5());
 }
