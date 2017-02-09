@@ -21,6 +21,15 @@ function maxDuffelBagValue(tuples, capacity) {
   return maxValue === -Infinity ? 0 : maxValue;
 }
 
+// function maxDuffelBagValue(tuples, capacity) {
+//   let highestValsAtWeight = {0: 0};
+//   for (var i = 1; i < capacity; i++) {
+//     //if any of the cakes' weights are i or if any two previously evaluated weights add to i, store the highest of those at this index
+//     let highest = 
+//     highestValsAtWeight[i] = 
+//   }
+// }
+
 var cakeTuples = [[0, 0], [3, 90], [2, 15]];
 var capacity = 20;
 
