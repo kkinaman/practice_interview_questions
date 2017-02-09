@@ -37,3 +37,21 @@ function reverseSentence(sentence) {
 
 var sentence = 'I like to eat eggs';
 console.log(reverseSentence(sentence));
+
+
+
+function reverseBySeparator(str, separator) {
+  let chunks = str.split(separator);
+  let mid = Math.floor(chunks.length / 2);
+  let iter = 0;
+  while (iter < mid) {
+    let temp = chunks[iter];
+    chunks[iter] = chunks[chunks.length - 1 - iter];
+    chunks[chunks.length - 1 - iter] = temp;
+    iter++;
+  }
+  return chunks.join(separator);
+}
+
+console.log(reverseBySeparator(string, ''));
+console.log(reverseBySeparator(sentence, ' '));
