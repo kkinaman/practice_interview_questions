@@ -19,3 +19,21 @@ function reverseString(str) {
 var string = 'hello there ;)';
 
 console.log(reverseString(string));
+
+
+
+function reverseSentence(sentence) {
+  let words = sentence.split(' ');
+  let mid = Math.floor(words.length / 2);
+  let iter = 0;
+  while (iter < mid) {
+    let temp = words[iter];
+    words[iter] = words[words.length - 1 - iter];
+    words[words.length - 1 - iter] = temp;
+    iter++;
+  }
+  return words.join(' ');
+}
+
+var sentence = 'I like to eat eggs';
+console.log(reverseSentence(sentence));
